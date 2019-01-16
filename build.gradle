@@ -51,9 +51,17 @@ configurations {
     wagon
 }
 
+repositories {
+	jcenter()
+	maven {
+		url 'http://xbib.org/repository'
+	}
+}
+
 dependencies {
     compile "com.ibm.icu:icu4j:${project.property('icu4j.version')}"
     compile "org.xbib:standardnumber:${project.property('standardnumber.version')}"
+    compile "org.codelibs.elasticsearch.module:analysis-common:${project.property('elasticsearch.version')}"
     testCompile "org.xbib.elasticsearch:elasticsearch-analysis-common:${project.property('xbib-elasticsearch-test.version')}"
     testCompile "org.apache.logging.log4j:log4j-core:${project.property('log4j.version')}"
     testCompile "org.elasticsearch.plugin:transport-netty4-client:${project.property('elasticsearch.version')}"
