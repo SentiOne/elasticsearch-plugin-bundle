@@ -40,7 +40,7 @@ public class LemmatizeTokenFilterFactory extends AbstractTokenFilterFactory {
     private Dictionary createDictionary(Settings settings) {
         String language = settings.get("language", "en");
         try {
-            String resource = settings.get("resource", "lemmatization-" + language + ".fsa.gz");
+            String resource = settings.get("resource", "/lemmatize/lemmatization-" + language + ".fsa.gz");
             if (resource.endsWith(".fsa") || resource.endsWith("fsa.gz")) {
                 // FSA
                 InputStream inputStream = getClass().getResourceAsStream(resource);
