@@ -1,6 +1,7 @@
 package org.xbib.elasticsearch.plugin.bundle.test.index.analysis.symbolname;
 
 import org.apache.lucene.analysis.Tokenizer;
+import org.elasticsearch.analysis.common.CommonAnalysisPlugin;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.Index;
 import org.elasticsearch.index.analysis.TokenFilterFactory;
@@ -30,7 +31,7 @@ public class SymbolnameTokenFilterTests extends ESTokenStreamTestCase {
         };
         ESTestCase.TestAnalysis analysis = ESTestCase.createTestAnalysis(new Index("test", "_na_"),
                 Settings.EMPTY,
-                new BundlePlugin(Settings.EMPTY));
+                new BundlePlugin(Settings.EMPTY), new CommonAnalysisPlugin());
         TokenFilterFactory tokenFilter = analysis.tokenFilter.get("symbolname");
         Tokenizer tokenizer = analysis.tokenizer.get("whitespace").create();
         tokenizer.setReader(new StringReader(source));
@@ -58,7 +59,7 @@ public class SymbolnameTokenFilterTests extends ESTokenStreamTestCase {
         };
         ESTestCase.TestAnalysis analysis = ESTestCase.createTestAnalysis(new Index("test", "_na_"),
                 Settings.EMPTY,
-                new BundlePlugin(Settings.EMPTY));
+                new BundlePlugin(Settings.EMPTY), new CommonAnalysisPlugin());
         TokenFilterFactory tokenFilter = analysis.tokenFilter.get("symbolname");
         Tokenizer tokenizer = analysis.tokenizer.get("whitespace").create();
         tokenizer.setReader(new StringReader(source));
@@ -89,7 +90,7 @@ public class SymbolnameTokenFilterTests extends ESTokenStreamTestCase {
         };
         ESTestCase.TestAnalysis analysis = ESTestCase.createTestAnalysis(new Index("test", "_na_"),
                 Settings.EMPTY,
-                new BundlePlugin(Settings.EMPTY));
+                new BundlePlugin(Settings.EMPTY), new CommonAnalysisPlugin());
         TokenFilterFactory tokenFilter = analysis.tokenFilter.get("symbolname");
         Tokenizer tokenizer = analysis.tokenizer.get("whitespace").create();
         tokenizer.setReader(new StringReader(source));

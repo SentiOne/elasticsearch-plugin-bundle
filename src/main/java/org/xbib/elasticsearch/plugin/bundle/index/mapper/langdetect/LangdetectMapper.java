@@ -193,9 +193,9 @@ public class LangdetectMapper extends FieldMapper {
             } else {
                 copyToContext = context.switchDoc(targetDoc);
             }
-            FieldMapper fieldMapper = copyToContext.docMapper().mappers().getMapper(field.toString());
-            if (fieldMapper != null) {
-                fieldMapper.parse(copyToContext);
+            Mapper fieldMapper = copyToContext.docMapper().mappers().getMapper(field.toString());
+            if (fieldMapper instanceof FieldMapper) {
+                ((FieldMapper)fieldMapper).parse(copyToContext);
             } else {
                 throw new MapperParsingException("attempt to copy value to non-existing field [" + field + "]");
             }

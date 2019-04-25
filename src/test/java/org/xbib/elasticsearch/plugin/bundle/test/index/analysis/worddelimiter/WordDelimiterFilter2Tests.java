@@ -9,6 +9,7 @@ import org.apache.lucene.analysis.core.StopFilter;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
+import org.elasticsearch.analysis.common.CommonAnalysisPlugin;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.index.Index;
 import org.elasticsearch.test.ESTestCase;
@@ -44,7 +45,7 @@ public class WordDelimiterFilter2Tests extends ESTokenStreamTestCase {
                 .build();
         ESTestCase.TestAnalysis analysis = ESTestCase.createTestAnalysis(new Index("test", "_na_"),
                 settings,
-                new BundlePlugin(Settings.EMPTY));
+                new BundlePlugin(Settings.EMPTY), new CommonAnalysisPlugin());
 
         Tokenizer tokenizer = analysis.tokenizer.get("keyword").create();
         tokenizer.setReader(new StringReader("foo-bar"));
@@ -64,7 +65,7 @@ public class WordDelimiterFilter2Tests extends ESTokenStreamTestCase {
                 .build();
         ESTestCase.TestAnalysis analysis = ESTestCase.createTestAnalysis(new Index("test", "_na_"),
                 settings,
-                new BundlePlugin(Settings.EMPTY));
+                new BundlePlugin(Settings.EMPTY), new CommonAnalysisPlugin());
         Tokenizer tokenizer = analysis.tokenizer.get("keyword").create();
         tokenizer.setReader(new StringReader("übelkeit"));
         TokenStream ts = analysis.tokenFilter.get("wd").create(tokenizer);

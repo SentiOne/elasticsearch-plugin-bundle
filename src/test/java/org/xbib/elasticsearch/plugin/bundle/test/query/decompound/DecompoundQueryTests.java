@@ -24,7 +24,6 @@ import org.elasticsearch.plugins.PluginInfo;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.test.ESIntegTestCase;
-import org.elasticsearch.test.StreamsUtils;
 import org.elasticsearch.test.hamcrest.ElasticsearchAssertions;
 import org.elasticsearch.transport.Netty4Plugin;
 import org.junit.Before;

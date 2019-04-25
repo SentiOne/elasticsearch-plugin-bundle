@@ -88,7 +88,7 @@ public class ReferenceMapper extends FieldMapper {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Mapper parse(ParseContext originalContext) throws IOException {
+    public void parse(ParseContext originalContext) throws IOException {
         String content = null;
         ParseContext context = originalContext;
         XContentParser parser = context.parser();
@@ -129,7 +129,7 @@ public class ReferenceMapper extends FieldMapper {
             }
         }
         if (content == null) {
-            return null;
+            return;
         }
         context = context.createExternalValueContext(content);
         contentMapper.parse(context);
@@ -176,7 +176,6 @@ public class ReferenceMapper extends FieldMapper {
             logger.warn("missing prerequisite: client={} index={} type={} fields={}",
                     client, index, type, fields);
         }
-        return null;
     }
 
     @Override
@@ -234,9 +233,9 @@ public class ReferenceMapper extends FieldMapper {
                     copyToContext = context.switchDoc(targetDoc);
                 }
                 // simplified - no dynamic field creation
-                FieldMapper fieldMapper = copyToContext.docMapper().mappers().getMapper(field);
-                if (fieldMapper != null) {
-                    fieldMapper.parse(copyToContext);
+                Mapper fieldMapper = copyToContext.docMapper().mappers().getMapper(field);
+                if (fieldMapper instanceof FieldMapper) {
+                    ((FieldMapper)fieldMapper).parse(copyToContext);
                 } else {
                     throw new MapperParsingException("attempt to copy value to non-existing field [" + field + "]");
                 }

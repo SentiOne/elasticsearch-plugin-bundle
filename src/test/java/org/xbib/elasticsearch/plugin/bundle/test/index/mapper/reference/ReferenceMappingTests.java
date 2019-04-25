@@ -99,7 +99,7 @@ public class ReferenceMappingTests extends ESSingleNodeTestCase {
         for (IndexableField field : doc.getFields()) {
             logger.info("testRefMappings {} = {}", field.name(), field.stringValue());
         }
-        assertNotNull(docMapper.mappers().smartNameFieldMapper("someField"));
+        assertNotNull(docMapper.mappers().getMapper("someField"));
         assertEquals("1234", doc.getFields("someField")[0].stringValue());
         assertEquals(3, doc.getFields("ref").length);
         assertEquals("a", doc.getFields("ref")[0].stringValue());

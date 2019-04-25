@@ -10,7 +10,6 @@ import org.xbib.elasticsearch.plugin.bundle.BundlePlugin;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
