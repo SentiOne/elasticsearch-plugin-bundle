@@ -21,25 +21,41 @@ package org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph;
 
 import org.apache.lucene.analysis.CharArraySet;
 import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.miscellaneous.WordDelimiterFilter;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
 import org.elasticsearch.index.analysis.Analysis;
-import org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimiter.WordDelimiterFlags;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class WordDelimiterGraphTokenFilter2Factory extends AbstractTokenFilterFactory implements WordDelimiterFlags {
+import static org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphFilter2.ALL_PARTS_AT_SAME_POSITION;
+import static org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphFilter2.CATENATE_ALL;
+import static org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphFilter2.CATENATE_NUMBERS;
+import static org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphFilter2.CATENATE_WORDS;
+import static org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphFilter2.GENERATE_NUMBER_PARTS;
+import static org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphFilter2.GENERATE_WORD_PARTS;
+import static org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphFilter2.PRESERVE_ORIGINAL;
+import static org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphFilter2.SPLIT_ON_CASE_CHANGE;
+import static org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphFilter2.SPLIT_ON_NUMERICS;
+import static org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphFilter2.STEM_ENGLISH_POSSESSIVE;
+
+public class WordDelimiterGraphTokenFilter2Factory extends AbstractTokenFilterFactory {
 
     private final byte[] charTypeTable;
     private final int flags;
     private final CharArraySet protoWords;
 
     public WordDelimiterGraphTokenFilter2Factory(IndexSettings indexSettings, Environment env,
-												 String name, Settings settings) {
+                                                 String name, Settings settings) {
         super(indexSettings, name, settings);
 
         // Sample Format for the type table:
@@ -73,6 +89,8 @@ public class WordDelimiterGraphTokenFilter2Factory extends AbstractTokenFilterFa
         flags |= getFlag(SPLIT_ON_NUMERICS, settings, "split_on_numerics", true);
         // If set, causes trailing "'s" to be removed for each subword: "O'Neil's" => "O", "Neil"
         flags |= getFlag(STEM_ENGLISH_POSSESSIVE, settings, "stem_english_possessive", true);
+        // If 1, causes generated subwords to stick at the same position, they otherwise take a new position
+        flags |= getFlag(ALL_PARTS_AT_SAME_POSITION, settings, "all_parts_at_same_position", false);
         // If not null is the set of tokens to protect from being delimited
         Set<?> protectedWords = Analysis.getWordSet(env, indexSettings.getIndexVersionCreated(),
                 settings, "protected_words");
@@ -122,17 +140,17 @@ public class WordDelimiterGraphTokenFilter2Factory extends AbstractTokenFilterFa
 
     private static Byte parseType(String s) {
         if (s.equals("LOWER"))
-            return LOWER;
+            return WordDelimiterFilter.LOWER;
         else if (s.equals("UPPER"))
-            return UPPER;
+            return WordDelimiterFilter.UPPER;
         else if (s.equals("ALPHA"))
-            return ALPHA;
+            return WordDelimiterFilter.ALPHA;
         else if (s.equals("DIGIT"))
-            return DIGIT;
+            return WordDelimiterFilter.DIGIT;
         else if (s.equals("ALPHANUM"))
-            return ALPHANUM;
+            return WordDelimiterFilter.ALPHANUM;
         else if (s.equals("SUBWORD_DELIM"))
-            return SUBWORD_DELIM;
+            return WordDelimiterFilter.SUBWORD_DELIM;
         else
             return null;
     }
