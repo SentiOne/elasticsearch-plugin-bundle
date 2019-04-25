@@ -60,6 +60,7 @@ import org.xbib.elasticsearch.plugin.bundle.index.analysis.standardnumber.Standa
 import org.xbib.elasticsearch.plugin.bundle.index.analysis.symbolname.SymbolnameTokenFilterFactory;
 import org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimiter.WordDelimiterFilter2Factory;
 import org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimiter.WordDelimiterFilterFactory;
+import org.xbib.elasticsearch.plugin.bundle.index.analysis.worddelimitergraph.WordDelimiterGraphTokenFilter2Factory;
 import org.xbib.elasticsearch.plugin.bundle.index.analysis.year.GregorianYearTokenFilterFactory;
 import org.xbib.elasticsearch.plugin.bundle.index.mapper.icu.IcuCollationKeyFieldMapper;
 import org.xbib.elasticsearch.plugin.bundle.index.mapper.langdetect.LangdetectMapper;
@@ -183,6 +184,9 @@ public class BundlePlugin extends Plugin implements AnalysisPlugin, MapperPlugin
         }
         if (settings.getAsBoolean("plugins.xbib.worddelimiter2.enabled", true)) {
             extra.put("worddelimiter2", WordDelimiterFilter2Factory::new);
+        }
+        if (settings.getAsBoolean("plugins.xbib.worddelimitergraph2.enabled", true)) {
+            extra.put("worddelimitergraph2", WordDelimiterGraphTokenFilter2Factory::new);
         }
         if (settings.getAsBoolean("plugins.xbib.symbolname.enabled", true)) {
             extra.put("symbolname", SymbolnameTokenFilterFactory::new);
