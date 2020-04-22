@@ -1,5 +1,7 @@
 package org.xbib.elasticsearch.plugin.bundle.common.standardnumber;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.elasticsearch.common.component.AbstractLifecycleComponent;
 import org.elasticsearch.common.inject.Inject;
 import org.elasticsearch.common.settings.Settings;
@@ -19,14 +21,13 @@ import java.util.List;
  * Standard number service.
  */
 public class StandardnumberService extends AbstractLifecycleComponent {
+    private static final Logger logger = LogManager.getLogger(StandardnumberService.class);
 
     private static final List<String> DEFAULT_STANDARD_NUMBERS =
             Arrays.asList("isbn", "issn", "ismn", "isni",  "orcid", "ppn", "zdb");
 
     @Inject
-    public StandardnumberService(Settings settings) {
-        super(settings);
-    }
+    public StandardnumberService() { }
 
     /**
      * Called from StandardnumberTokenFilterFactory.

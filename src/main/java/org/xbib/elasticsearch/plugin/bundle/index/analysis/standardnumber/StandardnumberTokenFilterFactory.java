@@ -21,7 +21,7 @@ public class StandardnumberTokenFilterFactory extends AbstractTokenFilterFactory
                                             Settings settings, StandardnumberMapper.TypeParser standardNumberTypeParser) {
         super(indexSettings, name, settings);
         this.settings = settings;
-        this.standardnumberService = new StandardnumberService(settings);
+        this.standardnumberService = new StandardnumberService();
         this.standardnumberService.setStandardNumberTypeParser(standardNumberTypeParser);
     }
 

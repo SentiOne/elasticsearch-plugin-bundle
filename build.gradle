@@ -6,7 +6,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "org.elasticsearch.gradle:build-tools:6.5.4"
+        classpath "org.elasticsearch.gradle:build-tools:6.8.8"
     }
 }
 
@@ -57,7 +57,7 @@ configurations {
 dependencies {
     compile "com.ibm.icu:icu4j:${project.property('icu4j.version')}"
     compile "org.xbib:standardnumber:${project.property('standardnumber.version')}"
-    compile "org.codelibs.elasticsearch.module:analysis-common:${project.property('elasticsearch.version')}"
+    compile "org.codelibs.elasticsearch.module:analysis-common:${project.property('elasticsearch-analysis-common.version')}"
     testCompile "org.elasticsearch:elasticsearch:${project.property('elasticsearch.version')}"
     testCompile "org.elasticsearch.plugin:transport-netty4-client:${project.property('elasticsearch.version')}"
     wagon "org.apache.maven.wagon:wagon-ssh:${project.property('wagon.version')}"
@@ -92,8 +92,8 @@ jar {
 
 afterEvaluate {
     tasks.withType(JavaCompile) {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_12
+        targetCompatibility = JavaVersion.VERSION_12
         options.compilerArgs << "-Xlint:none,-fallthrough" << "-Xdoclint:none"
     }
 
@@ -153,3 +153,5 @@ licenseHeaders.enabled = false
 dependencyLicenses.enabled = false
 
 thirdPartyAudit.enabled = false
+
+testingConventions.enabled = false

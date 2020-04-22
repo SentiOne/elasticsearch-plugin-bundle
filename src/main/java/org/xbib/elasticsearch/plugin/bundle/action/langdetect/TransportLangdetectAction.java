@@ -22,12 +22,15 @@ public class TransportLangdetectAction extends TransportAction<LangdetectRequest
 
     private static final Map<String, LangdetectService> services = new HashMap<>();
 
+    private final Settings settings;
+
     @Inject
     public TransportLangdetectAction(Settings settings, ThreadPool threadPool,
                                      ActionFilters actionFilters,
                                      IndexNameExpressionResolver indexNameExpressionResolver,
                                      TransportService transportService) {
         super(settings, LangdetectAction.NAME, threadPool, actionFilters, indexNameExpressionResolver, transportService.getTaskManager());
+        this.settings = settings;
         services.put("", new LangdetectService(settings));
     }
 
