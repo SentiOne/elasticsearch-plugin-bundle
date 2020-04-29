@@ -16,6 +16,14 @@ public class ISBNFormatRequest extends ActionRequest {
 
     private String value;
 
+    public ISBNFormatRequest() {
+    }
+
+    public ISBNFormatRequest(StreamInput in) throws IOException {
+        super(in);
+        value = in.readString();
+    }
+
     @Override
     public ActionRequestValidationException validate() {
         ActionRequestValidationException validationException = null;
@@ -32,12 +40,6 @@ public class ISBNFormatRequest extends ActionRequest {
     public ISBNFormatRequest setValue(String value) {
         this.value = value;
         return this;
-    }
-
-    @Override
-    public void readFrom(StreamInput in) throws IOException {
-        super.readFrom(in);
-        value = in.readString();
     }
 
     @Override

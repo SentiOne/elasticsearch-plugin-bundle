@@ -184,8 +184,8 @@ public class ReferenceMapper extends FieldMapper {
     }
 
     @Override
-    protected void doMerge(Mapper mergeWith, boolean updateAllTypes) {
-        super.doMerge(mergeWith, updateAllTypes);
+    protected void doMerge(Mapper mergeWith) {
+        super.doMerge(mergeWith);
     }
 
     @Override
@@ -284,7 +284,7 @@ public class ReferenceMapper extends FieldMapper {
             failIfNotIndexed();
             TermQuery query = new TermQuery(new Term(name(), indexedValueForSearch(value)));
             if ((Float.compare(boost(), 1f) == 0) ||
-                    (context != null && context.indexVersionCreated().before(Version.V_5_0_0_alpha1))) {
+                    (context != null && context.indexVersionCreated().before(Version.V_6_0_0_alpha1))) {
                 return query;
             }
             return new BoostQuery(query, boost());

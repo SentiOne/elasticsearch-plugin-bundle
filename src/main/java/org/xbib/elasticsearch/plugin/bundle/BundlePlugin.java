@@ -285,10 +285,10 @@ public class BundlePlugin extends Plugin implements AnalysisPlugin, MapperPlugin
                                              Supplier<DiscoveryNodes> nodesInCluster) {
         List<RestHandler> extra = new ArrayList<>();
         if (settings.getAsBoolean("plugins.xbib.isbnformat.enabled", true)) {
-            extra.add(new RestISBNFormatterAction(settings, restController));
+            extra.add(new RestISBNFormatterAction(restController));
         }
         if (settings.getAsBoolean("plugins.xbib.langdetect.enabled", true)) {
-            extra.add(new RestLangdetectAction(settings, restController));
+            extra.add(new RestLangdetectAction(restController));
         }
         return extra;
     }

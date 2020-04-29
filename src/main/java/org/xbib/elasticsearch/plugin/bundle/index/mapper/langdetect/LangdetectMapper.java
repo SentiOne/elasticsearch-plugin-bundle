@@ -160,8 +160,8 @@ public class LangdetectMapper extends FieldMapper {
     }
 
     @Override
-    protected void doMerge(Mapper mergeWith, boolean updateAllTypes) {
-        super.doMerge(mergeWith, updateAllTypes);
+    protected void doMerge(Mapper mergeWith) {
+        super.doMerge(mergeWith);
     }
 
     @Override

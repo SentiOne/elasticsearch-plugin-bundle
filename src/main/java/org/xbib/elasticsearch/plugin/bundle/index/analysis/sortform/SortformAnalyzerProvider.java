@@ -32,12 +32,12 @@ public class SortformAnalyzerProvider extends CustomAnalyzerProvider {
 
     public SortformAnalyzerProvider(IndexSettings indexSettings, Environment environment, String name,
                                     Settings settings) {
-        super(indexSettings, name, settings, environment);
+        super(indexSettings, name, settings);
         this.tokenizerFactory = new SortformTokenizerFactory(indexSettings, name, settings);
         this.analyzerSettings = settings;
     }
 
-    @Override
+//    @Override
     public void build(final Map<String, TokenizerFactory> tokenizers,
                       final Map<String, CharFilterFactory> charFilters,
                       final Map<String, TokenFilterFactory> tokenFilters) {
@@ -63,7 +63,7 @@ public class SortformAnalyzerProvider extends CustomAnalyzerProvider {
         }
         int positionOffsetGap = analyzerSettings.getAsInt("position_offset_gap", 0);
         int offsetGap = analyzerSettings.getAsInt("offset_gap", -1);
-        this.customAnalyzer = new CustomAnalyzer(name(), tokenizerFactory,
+        this.customAnalyzer = new CustomAnalyzer(tokenizerFactory,
                 myCharFilters.toArray(new CharFilterFactory[myCharFilters.size()]),
                 myTokenFilters.toArray(new TokenFilterFactory[myTokenFilters.size()]),
                 positionOffsetGap,
@@ -83,7 +83,7 @@ public class SortformAnalyzerProvider extends CustomAnalyzerProvider {
         int bufferSize;
 
         SortformTokenizerFactory(IndexSettings indexSettings, String name, Settings settings) {
-            super(indexSettings, name, settings);
+            super(indexSettings, settings, name);
             Collator collator = IcuCollationKeyAnalyzerProvider.createCollator(settings);
             factory = new IcuCollationAttributeFactory(collator);
             bufferSize = settings.getAsInt("bufferSize", 256);

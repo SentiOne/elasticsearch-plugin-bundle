@@ -8,7 +8,6 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.env.Environment;
 import org.elasticsearch.index.IndexSettings;
 import org.elasticsearch.index.analysis.AbstractTokenFilterFactory;
-import org.elasticsearch.index.analysis.MultiTermAwareComponent;
 
 import java.io.InputStream;
 
@@ -18,7 +17,7 @@ import java.io.InputStream;
  * The <code>name</code> can be used to provide the type of normalization to perform,
  * the <code>mode</code> can be used to provide the mode of normalization.
  */
-public class IcuNormalizerTokenFilterFactory extends AbstractTokenFilterFactory implements MultiTermAwareComponent {
+public class IcuNormalizerTokenFilterFactory extends AbstractTokenFilterFactory {
 
     private final Normalizer2 normalizer;
 
@@ -37,11 +36,6 @@ public class IcuNormalizerTokenFilterFactory extends AbstractTokenFilterFactory 
     @Override
     public TokenStream create(TokenStream tokenStream) {
         return new IcuNormalizerFilter(tokenStream, normalizer);
-    }
-
-    @Override
-    public Object getMultiTermComponent() {
-        return this;
     }
 
     protected InputStream getNormalizationResource(Settings settings) {

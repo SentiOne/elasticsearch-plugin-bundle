@@ -6,7 +6,7 @@ import org.apache.lucene.analysis.TokenFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.core.StopFilter;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.lucene.analysis.standard.ClassicAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute;
 import org.elasticsearch.analysis.common.CommonAnalysisPlugin;
@@ -259,7 +259,7 @@ public class WordDelimiterFilter2Tests extends ESTokenStreamTestCase {
             @Override
             public TokenStreamComponents createComponents(String field) {
                 Tokenizer tokenizer = new MockTokenizer(MockTokenizer.WHITESPACE, false);
-                StopFilter filter = new StopFilter(tokenizer, StandardAnalyzer.STOP_WORDS_SET);
+                StopFilter filter = new StopFilter(tokenizer, ClassicAnalyzer.STOP_WORDS_SET);
                 //filter.setEnablePositionIncrements(true);
                 return new TokenStreamComponents(tokenizer, new WordDelimiterFilter2(filter, flags, protWords));
             }
@@ -289,7 +289,7 @@ public class WordDelimiterFilter2Tests extends ESTokenStreamTestCase {
             @Override
             public TokenStreamComponents createComponents(String field) {
                 Tokenizer tokenizer = new MockTokenizer(MockTokenizer.WHITESPACE, false);
-                StopFilter filter = new StopFilter(tokenizer, StandardAnalyzer.STOP_WORDS_SET);
+                StopFilter filter = new StopFilter(tokenizer, ClassicAnalyzer.STOP_WORDS_SET);
                 return new TokenStreamComponents(tokenizer, new WordDelimiterFilter2(filter, flags4, protWords));
             }
         };
@@ -392,7 +392,7 @@ public class WordDelimiterFilter2Tests extends ESTokenStreamTestCase {
             @Override
             public TokenStreamComponents createComponents(String field) {
                 Tokenizer tokenizer = new MockTokenizer(MockTokenizer.WHITESPACE, false);
-                StopFilter filter = new StopFilter(tokenizer, StandardAnalyzer.STOP_WORDS_SET);
+                StopFilter filter = new StopFilter(tokenizer, ClassicAnalyzer.STOP_WORDS_SET);
                 return new TokenStreamComponents(tokenizer, new WordDelimiterFilter2(filter, flags, protWords));
             }
         };
@@ -421,7 +421,7 @@ public class WordDelimiterFilter2Tests extends ESTokenStreamTestCase {
             @Override
             public TokenStreamComponents createComponents(String field) {
                 Tokenizer tokenizer = new MockTokenizer(MockTokenizer.WHITESPACE, false);
-                StopFilter filter = new StopFilter(tokenizer, StandardAnalyzer.STOP_WORDS_SET);
+                StopFilter filter = new StopFilter(tokenizer, ClassicAnalyzer.STOP_WORDS_SET);
                 return new TokenStreamComponents(tokenizer, new WordDelimiterFilter2(filter, flags4, protWords));
             }
         };

@@ -93,7 +93,7 @@ public class ReferenceMappingTests extends ESSingleNodeTestCase {
         BytesReference json = BytesReference.bytes(jsonBuilder().startObject()
                 .field("someField", "1234")
                 .endObject());
-        SourceToParse sourceToParse = SourceToParse.source("some_index", "some_type", "1", json, XContentType.JSON);
+        SourceToParse sourceToParse = new SourceToParse("some_index", "some_type", "1", json, XContentType.JSON);
         ParseContext.Document doc = docMapper.parse(sourceToParse).rootDoc();
         assertNotNull(doc);
         for (IndexableField field : doc.getFields()) {
@@ -117,7 +117,7 @@ public class ReferenceMappingTests extends ESSingleNodeTestCase {
                 .field("bib.contributor", "A contributor")
                 .field("authorID", "1")
                 .endObject());
-        SourceToParse sourceToParse = SourceToParse.source("docs", "docs", "1", json, XContentType.JSON);
+        SourceToParse sourceToParse = new SourceToParse("docs", "docs", "1", json, XContentType.JSON);
         ParseContext.Document doc = docMapper.parse(sourceToParse).rootDoc();
         for (IndexableField field : doc.getFields()) {
             logger.info("testRefInDoc {} = {}", field.name(), field.stringValue());
@@ -138,7 +138,7 @@ public class ReferenceMappingTests extends ESSingleNodeTestCase {
                 .field("title", "A title")
                 .field("authorID", "1")
                 .endObject());
-        SourceToParse sourceToParse = SourceToParse.source("docs", "docs", "1", json, XContentType.JSON);
+        SourceToParse sourceToParse = new SourceToParse("docs", "docs", "1", json, XContentType.JSON);
         ParseContext.Document doc = docMapper.parse(sourceToParse).rootDoc();
         assertEquals(1, doc.getFields("ref").length, 1);
         assertEquals("John Doe", doc.getFields("ref")[0].stringValue());

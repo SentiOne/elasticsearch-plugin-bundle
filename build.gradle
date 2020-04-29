@@ -6,7 +6,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "org.elasticsearch.gradle:build-tools:6.8.8"
+        classpath "org.elasticsearch.gradle:build-tools:7.6.2"
     }
 }
 
@@ -57,7 +57,7 @@ configurations {
 dependencies {
     compile "com.ibm.icu:icu4j:${project.property('icu4j.version')}"
     compile "org.xbib:standardnumber:${project.property('standardnumber.version')}"
-    compile "org.codelibs.elasticsearch.module:analysis-common:${project.property('elasticsearch-analysis-common.version')}"
+    compile "org.codelibs.elasticsearch.module:analysis-common:${project.property('elasticsearch.version')}"
     testCompile "org.elasticsearch:elasticsearch:${project.property('elasticsearch.version')}"
     testCompile "org.elasticsearch.plugin:transport-netty4-client:${project.property('elasticsearch.version')}"
     wagon "org.apache.maven.wagon:wagon-ssh:${project.property('wagon.version')}"

@@ -80,7 +80,7 @@ public class GNDReferenceMappingTests extends ESSingleNodeTestCase {
                     .setQuery(QueryBuilders.matchPhraseQuery("bib.namePersonal", "Panter, Peter"));
             searchResponse = searchRequestBuilder.execute().actionGet();
             logger.info("hits = {}", searchResponse.getHits().getTotalHits());
-            assertTrue(searchResponse.getHits().getTotalHits() > 0);
+            assertTrue(searchResponse.getHits().getTotalHits().value > 0);
             for (SearchHit hit : searchResponse.getHits().getHits()) {
                 logger.info("peter panter = {}", hit.getSourceAsMap());
             }
@@ -93,7 +93,7 @@ public class GNDReferenceMappingTests extends ESSingleNodeTestCase {
                     .setExplain(true);
             searchResponse = searchRequestBuilder.execute().actionGet();
             logger.info("hits = {}", searchResponse.getHits().getTotalHits());
-            assertTrue(searchResponse.getHits().getTotalHits() > 0);
+            assertTrue(searchResponse.getHits().getTotalHits().value > 0);
             for (SearchHit hit : searchResponse.getHits().getHits()) {
                 logger.info("schroeder = {}", hit.getSourceAsMap());
                 logger.info(hit.getExplanation().toString());

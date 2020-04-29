@@ -1,6 +1,8 @@
 package org.xbib.elasticsearch.plugin.bundle.action.isbnformat;
 
 import org.elasticsearch.action.ActionResponse;
+import org.elasticsearch.common.io.stream.StreamInput;
+import org.elasticsearch.common.io.stream.StreamOutput;
 import org.elasticsearch.common.xcontent.StatusToXContentObject;
 import org.elasticsearch.common.xcontent.ToXContent;
 import org.elasticsearch.common.xcontent.XContentBuilder;
@@ -24,6 +26,18 @@ public class ISBNFormatResponse extends ActionResponse implements StatusToXConte
     private String isbn13Formatted;
 
     private String invalid;
+
+    public ISBNFormatResponse() {
+    }
+
+    public ISBNFormatResponse(StreamInput in) throws IOException {
+        super(in);
+        isbn10 = in.readOptionalString();
+        isbn10Formatted = in.readOptionalString();
+        isbn13 = in.readOptionalString();
+        isbn13Formatted = in.readOptionalString();
+        invalid = in.readOptionalString();
+    }
 
     public ISBNFormatResponse setIsbn10(String value) {
         this.isbn10 = value;
@@ -67,5 +81,14 @@ public class ISBNFormatResponse extends ActionResponse implements StatusToXConte
     @Override
     public RestStatus status() {
         return OK;
+    }
+
+    @Override
+    public void writeTo(StreamOutput out) throws IOException {
+        out.writeOptionalString(isbn10);
+        out.writeOptionalString(isbn10Formatted);
+        out.writeOptionalString(isbn13);
+        out.writeOptionalString(isbn13Formatted);
+        out.writeOptionalString(invalid);
     }
 }

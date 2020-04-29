@@ -18,6 +18,15 @@ public class LangdetectRequest extends ActionRequest {
 
     private String text;
 
+    public LangdetectRequest() {
+    }
+
+    public LangdetectRequest(StreamInput in) throws IOException {
+        super(in);
+        text = in.readString();
+        profile = in.readOptionalString();
+    }
+
     @Override
     public ActionRequestValidationException validate() {
         ActionRequestValidationException validationException = null;
@@ -43,13 +52,6 @@ public class LangdetectRequest extends ActionRequest {
     public LangdetectRequest setText(String text) {
         this.text = text;
         return this;
-    }
-
-    @Override
-    public void readFrom(StreamInput in) throws IOException {
-        super.readFrom(in);
-        text = in.readString();
-        profile = in.readOptionalString();
     }
 
     @Override

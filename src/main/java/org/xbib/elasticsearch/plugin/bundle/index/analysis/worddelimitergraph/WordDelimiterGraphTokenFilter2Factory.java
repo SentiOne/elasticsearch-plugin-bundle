@@ -92,7 +92,7 @@ public class WordDelimiterGraphTokenFilter2Factory extends AbstractTokenFilterFa
         // If 1, causes generated subwords to stick at the same position, they otherwise take a new position
         flags |= getFlag(ALL_PARTS_AT_SAME_POSITION, settings, "all_parts_at_same_position", false);
         // If not null is the set of tokens to protect from being delimited
-        Set<?> protectedWords = Analysis.getWordSet(env, indexSettings.getIndexVersionCreated(),
+        Set<?> protectedWords = Analysis.getWordSet(env,
                 settings, "protected_words");
         this.protoWords = protectedWords == null ? null : CharArraySet.copy(protectedWords);
         this.flags = flags;

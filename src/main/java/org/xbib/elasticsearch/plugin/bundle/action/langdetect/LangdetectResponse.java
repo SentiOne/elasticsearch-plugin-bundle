@@ -2,6 +2,8 @@ package org.xbib.elasticsearch.plugin.bundle.action.langdetect;
 
 import org.elasticsearch.action.ActionResponse;
 import org.elasticsearch.common.Strings;
+import org.elasticsearch.common.io.stream.StreamInput;
+import org.elasticsearch.common.io.stream.StreamOutput;
 import org.elasticsearch.common.xcontent.StatusToXContentObject;
 import org.elasticsearch.common.xcontent.ToXContent;
 import org.elasticsearch.common.xcontent.XContentBuilder;
@@ -22,6 +24,18 @@ public class LangdetectResponse extends ActionResponse implements StatusToXConte
     private String profile;
 
     private List<Language> languages = new ArrayList<>();
+
+    public LangdetectResponse() {
+    }
+
+    public LangdetectResponse(StreamInput in) throws IOException {
+        super(in);
+        profile = in.readOptionalString();
+        int size = in.readInt();
+        for (int i = 0; i < size; i++) {
+            languages.add(new Language(in));
+        }
+    }
 
     public String getProfile() {
         return profile;
@@ -58,5 +72,14 @@ public class LangdetectResponse extends ActionResponse implements StatusToXConte
     @Override
     public RestStatus status() {
         return OK;
+    }
+
+    @Override
+    public void writeTo(StreamOutput out) throws IOException {
+        out.writeOptionalString(profile);
+        out.writeInt(languages.size());
+        for (Language lang : languages) {
+            lang.writeTo(out);
+        }
     }
 }

@@ -27,13 +27,13 @@ public class HyphenAnalyzerProvider extends CustomAnalyzerProvider {
     private CustomAnalyzer customAnalyzer;
 
     public HyphenAnalyzerProvider(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
-        super(indexSettings, name, settings, environment);
+        super(indexSettings, name, settings);
         this.tokenizerFactory = new HyphenTokenizerFactory(indexSettings, environment, name, settings);
         this.tokenFilterFactory = new HyphenTokenFilterFactory(indexSettings, environment, name, settings);
         this.analyzerSettings = settings;
     }
 
-    @Override
+//    @Override
     public void build(final Map<String, TokenizerFactory> tokenizers,
                       final Map<String, CharFilterFactory> charFilters,
                       final Map<String, TokenFilterFactory> tokenFilters) {
@@ -60,7 +60,7 @@ public class HyphenAnalyzerProvider extends CustomAnalyzerProvider {
         }
         int positionOffsetGap = analyzerSettings.getAsInt("position_offset_gap", 0);
         int offsetGap = analyzerSettings.getAsInt("offset_gap", -1);
-        this.customAnalyzer = new CustomAnalyzer(name(), tokenizerFactory,
+        this.customAnalyzer = new CustomAnalyzer(tokenizerFactory,
                 myCharFilters.toArray(new CharFilterFactory[myCharFilters.size()]),
                 myTokenFilters.toArray(new TokenFilterFactory[myTokenFilters.size()]),
                 positionOffsetGap,
