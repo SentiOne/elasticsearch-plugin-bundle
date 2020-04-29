@@ -13,10 +13,7 @@ import org.elasticsearch.common.settings.IndexScopedSettings;
 import org.elasticsearch.common.settings.Setting;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.settings.SettingsFilter;
-import org.elasticsearch.index.analysis.AnalyzerProvider;
-import org.elasticsearch.index.analysis.CharFilterFactory;
-import org.elasticsearch.index.analysis.TokenFilterFactory;
-import org.elasticsearch.index.analysis.TokenizerFactory;
+import org.elasticsearch.index.analysis.*;
 import org.elasticsearch.index.mapper.Mapper;
 import org.elasticsearch.indices.analysis.AnalysisModule;
 import org.elasticsearch.plugins.ActionPlugin;
@@ -55,6 +52,7 @@ import org.xbib.elasticsearch.plugin.bundle.index.analysis.naturalsort.NaturalSo
 import org.xbib.elasticsearch.plugin.bundle.index.analysis.naturalsort.NaturalSortKeyTokenizerFactory;
 import org.xbib.elasticsearch.plugin.bundle.index.analysis.sortform.SortformAnalyzerProvider;
 import org.xbib.elasticsearch.plugin.bundle.index.analysis.sortform.SortformTokenFilterFactory;
+import org.xbib.elasticsearch.plugin.bundle.index.analysis.sortform.SortformTokenizerFactory;
 import org.xbib.elasticsearch.plugin.bundle.index.analysis.standardnumber.StandardnumberAnalyzerProvider;
 import org.xbib.elasticsearch.plugin.bundle.index.analysis.standardnumber.StandardnumberTokenFilterFactory;
 import org.xbib.elasticsearch.plugin.bundle.index.analysis.symbolname.SymbolnameTokenFilterFactory;
@@ -212,6 +210,9 @@ public class BundlePlugin extends Plugin implements AnalysisPlugin, MapperPlugin
         }
         if (settings.getAsBoolean("plugins.xbib.naturalsort.enabled", true)) {
             extra.put("naturalsort", NaturalSortKeyTokenizerFactory::new);
+        }
+        if (settings.getAsBoolean("plugins.xbib.sortform.enabled", true)) {
+            extra.put("sortform", SortformTokenizerFactory::new);
         }
         return extra;
     }
