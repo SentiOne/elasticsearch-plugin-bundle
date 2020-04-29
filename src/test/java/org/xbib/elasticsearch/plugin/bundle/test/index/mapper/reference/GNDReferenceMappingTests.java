@@ -72,7 +72,7 @@ public class GNDReferenceMappingTests extends ESSingleNodeTestCase {
             for (SearchHit hit : searchResponse.getHits().getHits()) {
                 logger.info("kurt tucholsky = {}", hit.getSourceAsMap());
             }
-            assertEquals(1, searchResponse.getHits().getTotalHits());
+            assertEquals(1, searchResponse.getHits().getTotalHits().value);
 
             searchRequestBuilder = new SearchRequestBuilder(client(), SearchAction.INSTANCE)
                     .setIndices("title")
@@ -84,7 +84,7 @@ public class GNDReferenceMappingTests extends ESSingleNodeTestCase {
             for (SearchHit hit : searchResponse.getHits().getHits()) {
                 logger.info("peter panter = {}", hit.getSourceAsMap());
             }
-            assertEquals(1, searchResponse.getHits().getTotalHits());
+            assertEquals(1, searchResponse.getHits().getTotalHits().value);
 
             searchRequestBuilder = new SearchRequestBuilder(client(), SearchAction.INSTANCE)
                     .setIndices("title")
@@ -98,7 +98,7 @@ public class GNDReferenceMappingTests extends ESSingleNodeTestCase {
                 logger.info("schroeder = {}", hit.getSourceAsMap());
                 logger.info(hit.getExplanation().toString());
             }
-            assertEquals(1, searchResponse.getHits().getTotalHits());
+            assertEquals(1, searchResponse.getHits().getTotalHits().value);
 
             try {
                 client().admin().indices().prepareDelete("title", "gnd").execute().actionGet();

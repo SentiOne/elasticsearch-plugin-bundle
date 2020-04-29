@@ -66,7 +66,7 @@ public class LangDetectChineseTests extends ESSingleNodeTestCase {
                     .setQuery(QueryBuilders.termQuery("content.language", "zh-cn"))
                     .addStoredField("content.language");
             SearchResponse searchResponse = searchRequestBuilder.execute().actionGet();
-            assertEquals(1L, searchResponse.getHits().getTotalHits());
+            assertEquals(1L, searchResponse.getHits().getTotalHits().value);
             assertEquals("zh-cn", searchResponse.getHits().getAt(0).field("content.language").getValue());
         } finally {
             DeleteIndexRequestBuilder deleteIndexRequestBuilder =

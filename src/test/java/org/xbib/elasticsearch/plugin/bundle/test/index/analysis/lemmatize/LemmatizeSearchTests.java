@@ -66,13 +66,13 @@ public class LemmatizeSearchTests extends ESSingleNodeTestCase {
         SearchResponse searchResponse = client().prepareSearch()
                 .setQuery(QueryBuilders.matchQuery("content", "library"))
                 .execute().actionGet();
-        assertEquals(1L, searchResponse.getHits().getTotalHits());
+        assertEquals(1L, searchResponse.getHits().getTotalHits().value);
 
         // phrase search: academic libraries -> academic library
         searchResponse = client().prepareSearch()
                 .setQuery(QueryBuilders.matchPhraseQuery("content", "academic library"))
                 .setExplain(true)
                 .execute().actionGet();
-        assertEquals(1L, searchResponse.getHits().getTotalHits());
+        assertEquals(1L, searchResponse.getHits().getTotalHits().value);
     }
 }

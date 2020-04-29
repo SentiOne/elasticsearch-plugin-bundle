@@ -69,7 +69,7 @@ public class SimpleReferenceMappingTests extends ESSingleNodeTestCase {
         for (SearchHit hit : searchResponse.getHits().getHits()) {
             logger.info("{}", hit.getSourceAsMap());
         }
-        assertEquals(1, searchResponse.getHits().getTotalHits());
+        assertEquals(1, searchResponse.getHits().getTotalHits().value);
 
         // search for "second" which comes from ref
         queryBuilder = matchQuery("dc.creator", "second");
@@ -80,7 +80,7 @@ public class SimpleReferenceMappingTests extends ESSingleNodeTestCase {
         for (SearchHit hit : searchResponse.getHits().getHits()) {
             logger.info("{}", hit.getSourceAsMap());
         }
-        assertEquals(1, searchResponse.getHits().getTotalHits());
+        assertEquals(1, searchResponse.getHits().getTotalHits().value);
     }
 
     @SuppressForbidden(reason = "accessing local resources from classpath")

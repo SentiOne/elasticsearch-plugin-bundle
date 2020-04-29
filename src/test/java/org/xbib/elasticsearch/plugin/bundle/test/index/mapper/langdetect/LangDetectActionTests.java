@@ -106,21 +106,21 @@ public class LangDetectActionTests extends ESSingleNodeTestCase {
         SearchResponse searchResponse = client().prepareSearch()
                 .setQuery(QueryBuilders.termQuery("content", "en"))
                 .execute().actionGet();
-        assertEquals(1L, searchResponse.getHits().getTotalHits());
+        assertEquals(1L, searchResponse.getHits().getTotalHits().value);
         assertEquals("Oh, say can you see by the dawn`s early light, What so proudly we hailed at the twilight`s last gleaming?",
                 searchResponse.getHits().getAt(0).getSourceAsMap().get("content").toString());
 
         searchResponse = client().prepareSearch()
                 .setQuery(QueryBuilders.termQuery("content", "de"))
                 .execute().actionGet();
-        assertEquals(1L, searchResponse.getHits().getTotalHits());
+        assertEquals(1L, searchResponse.getHits().getTotalHits().value);
         assertEquals("Einigkeit und Recht und Freiheit für das deutsche Vaterland!",
                 searchResponse.getHits().getAt(0).getSourceAsMap().get("content").toString());
 
         searchResponse = client().prepareSearch()
                 .setQuery(QueryBuilders.termQuery("content", "fr"))
                 .execute().actionGet();
-        assertEquals(1L, searchResponse.getHits().getTotalHits());
+        assertEquals(1L, searchResponse.getHits().getTotalHits().value);
         assertEquals("Allons enfants de la Patrie, Le jour de gloire est arrivé!",
                 searchResponse.getHits().getAt(0).getSourceAsMap().get("content").toString());
         //} finally {

@@ -173,7 +173,7 @@ public class ReferenceMappingTests extends ESSingleNodeTestCase {
         for (SearchHit hit : searchResponse.getHits().getHits()) {
             logger.info("{}", hit.getSourceAsMap());
         }
-        assertEquals(1, searchResponse.getHits().getTotalHits());
+        assertEquals(1, searchResponse.getHits().getTotalHits().value);
 
         // search in field 1, referenced value
         queryBuilder = matchPhraseQuery("dc.creator", "John Doe");
@@ -183,7 +183,7 @@ public class ReferenceMappingTests extends ESSingleNodeTestCase {
         for (SearchHit hit : searchResponse.getHits().getHits()) {
             logger.info("{}", hit.getSourceAsMap());
         }
-        assertEquals(1, searchResponse.getHits().getTotalHits());
+        assertEquals(1, searchResponse.getHits().getTotalHits().value);
 
         // search in field 2, unreferenced value
         queryBuilder = matchPhraseQuery("bib.contributor", "A contributor");
@@ -193,7 +193,7 @@ public class ReferenceMappingTests extends ESSingleNodeTestCase {
         for (SearchHit hit : searchResponse.getHits().getHits()) {
             logger.info("{}", hit.getSourceAsMap());
         }
-        assertEquals(1, searchResponse.getHits().getTotalHits());
+        assertEquals(1, searchResponse.getHits().getTotalHits().value);
 
         // search in field 2, referenced value
         queryBuilder = matchPhraseQuery("bib.contributor", "John Doe");
@@ -203,7 +203,7 @@ public class ReferenceMappingTests extends ESSingleNodeTestCase {
         for (SearchHit hit : searchResponse.getHits().getHits()) {
             logger.info("{}", hit.getSourceAsMap());
         }
-        assertEquals(1, searchResponse.getHits().getTotalHits());
+        assertEquals(1, searchResponse.getHits().getTotalHits().value);
     }
 
     @SuppressForbidden(reason = "accessing local resources from classpath")
